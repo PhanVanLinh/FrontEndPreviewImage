@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style type="text/css">
+		* {
+			box-sizing: border-box;
+		}
+
+		.photo-group {
+			position: relative;
+			width: fit-content;
+			height: fit-content;
+		}
+
+		.photo-group img {
+			display: block;
+		}
+
+		.photo-group .photo {
+			width: 300px;
+			height: auto;
+		}
+
+		.photo-group .edit {
+			position: absolute;
+			right: 4px;
+			top: 8px;
+			width: 40px;
+			height: 40px;
+			padding: 10px;
+			background: black;
+		}
+
+		.photo-group .edit:hover {
+			background: gray;
+		}
+	</style>
+</head>
+`
+<body>
+	<div class="photo-group">
+		<img class="edit" src="ic_edit.png" onclick="onEditPhoto()">
+		<img id="photo" class="photo" src="photo_placeholder.jpg">
+	</div>
+	<input id="browse" type="file" accept="image/*" onchange="previewPhoto(event)" hidden="true">
+	<div id="preview"></div>
+
+
+	<script type="text/javascript">
+		function onEditPhoto() {
+			document.getElementById("browse").click();
+		}
+
+		function previewPhoto(event) {
+			const preview = document.getElementById('photo');
+			const file = event.target.files[0];
+
+			const reader = new FileReader();
+			reader.addEventListener("load", function () {
+				// convert image file to base64 string
+				preview.src = reader.result;
+			}, false);
+			reader.readAsDataURL(file);
+		}
+	</script>
+</body>
+
+</html>
